@@ -27,13 +27,13 @@ import TestComponent from "./testComponent";
                     {
                         title: "A react component",
                         type: "react-component",
-                        component: "testItem",
-                        props: { value: "I'm on the left" }
+                        component: "TestComponent",
+                        props: { value: "Left" }
                     },
                     {
                         title: "Another react component",
                         type: "react-component",
-                        component: "testItem"
+                        component: "TestComponent"
                     }
                 ]
             }
