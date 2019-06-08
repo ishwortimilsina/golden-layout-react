@@ -1,0 +1,44 @@
+{
+    "name": "golden-layout-react",
+    "version": "1.0.0",
+    "description": "A tool for declaratively adding GoldenLayout to your React application while embracing latest React patterns.",
+    "main": "index.js",
+    "scripts": {
+        "test": "jest --verbose"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/ishwortimilsina/golden-layout-react.git"
+    },
+    "keywords": [
+        "golden-layout-react",
+        "react-golden-layout",
+        "goldenlayoutreact",
+        "reactgoldenlayout"
+    ],
+    "author": "Ishwor Timilsina <timilsinasumit@gmail.com> (https://ishwortimilsina.com)",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/ishwortimilsina/golden-layout-react/issues"
+    },
+    "homepage": "https://github.com/ishwortimilsina/golden-layout-react#readme",
+    "jest": {
+        "testRegex": "/scripts/jest/dont-run-jest-directly\\.js$"
+    },
+    "devDependencies": {
+        "babel-core": "^6.0.0",
+        "babel-jest": "^23.0.1",
+        "babel-loader": "^6.0.0",
+        "babel-plugin-transform-class-properties": "^6.11.5",
+        "babel-preset-react": "^6.5.0",
+        "babel-preset-stage-1":  "^6.0.0",
+        "jest": "^23.1.0",
+        "prettier": "1.13.7",
+        "prop-types": "^15.6.2"
+    },
+    "dependencies": {
+        "golden-layout": "^1.5.9",
+        "react": "^16.8.6",
+        "react-dom": "^16.8.6"
+    }
+}
