@@ -16,6 +16,7 @@ This libray needs following packages to work:
 ```javascript
 import GoldenLayoutReact from "golden-layout-react";
 import TestComponent from "./testComponent";
+import StackComp from './stackComp';
 ...
 <GoldenLayoutReact
     htmlAttrs={{ style: { height: "500px", width: "500px" } }}
@@ -44,8 +45,15 @@ import TestComponent from "./testComponent";
             "TestComponent": TestComponent
         }
     }
+    StackComponent={<StackComp color="red"  />}
 />
 ```
+
+## Docs ##
+### Props ###
+* config: regular golden-layout config object
+* components: an object map with 'component' from config as key and the actual React component as the value
+* StackComponent: React component to be rendered alongside golden-layout stack controls (on the right-side of the header)
 
 ## Acknowledgement ##
 Inspired by the Philipp Munin's [example](https://github.com/golden-layout/golden-layout/issues/392#issuecomment-384731510)
