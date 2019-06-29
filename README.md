@@ -16,6 +16,7 @@ This libray needs following packages to work:
 ```javascript
 import GoldenLayoutReact from "golden-layout-react";
 import TestComponent from "./testComponent";
+import NonStackComponent from './nonStackComponent';
 import StackComp from './stackComp';
 ...
 <GoldenLayoutReact
@@ -35,6 +36,14 @@ import StackComp from './stackComp';
                         title: "Another react component",
                         type: "react-component",
                         component: "TestComponent"
+                    },
+                    {
+                        title: "Non stack",
+                        type: "react-component",
+                        component: "nonStackComponent",
+                        props: {
+                            value: "I don't have custom comp for stack."
+                        }
                     }
                 ]
             }
@@ -42,10 +51,15 @@ import StackComp from './stackComp';
     }}
     components={
         {
-            "TestComponent": TestComponent
+            "TestComponent": TestComponent,
+            "nonStackComponent": NonStackComponent
         }
     }
-    StackComponent={<StackComp color="red"  />}
+    stackComponents={
+        {
+            "testItem": <StackComp color="red"  />
+        }
+    }
 />
 ```
 

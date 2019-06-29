@@ -10,14 +10,15 @@ const GLStack = (props) => {
         props.StackComponent,
         { 
             glStack: props.stack,
-            activeComponentConfig: props.stack.getActiveContentItem().config
+            activeComponentConfig: props.activeComponentConfig
         }
     );
 }
 
 GLStack.propTypes = {
     stack: propTypes.object.isRequired,
-    StackComponent: propTypes.object.isRequired
+    StackComponent: propTypes.object.isRequired,
+    activeComponentConfig: propTypes.object.isRequired
 }
 
 export default GLStack;

@@ -36,16 +36,34 @@ class GoldenLayoutReact extends React.Component {
         // render that component on the stackcontrols space in GL panel headers
         // This will handled by GLStack wrapper component which will added few more props
         const renderStacks = () => {
-            if (this.props.StackComponent && React.isValidElement(this.props.StackComponent)) {
+            if (this.props.stackComponents) {
+
+                let StackComponent, activeComponentKey, targetElement, activeContentItem;
+
                 return this.state.glStacks.map(stack => {
-                    if (stack.getActiveContentItem()) {
-                        return ReactDOM.createPortal(
-                            <GLStack stack={stack} StackComponent={this.props.StackComponent} />,
-                            stack.header.controlsContainer.prepend('<div></div>')[0].firstChild
-                        )
+
+                    activeContentItem = stack.getActiveContentItem();
+
+                    if (activeContentItem) {
+
+                        activeComponentKey = activeContentItem.config.component;
+                        StackComponent = activeComponentKey && this.props.stackComponents[activeComponentKey];
+                        
+                        if (StackComponent) {
+                            targetElement = stack.header.controlsContainer[0].firstChild;
+
+                            return ReactDOM.createPortal(
+                                <GLStack 
+                                    stack={stack} 
+                                    StackComponent={StackComponent}
+                                    activeComponentConfig={activeContentItem.config}
+                                />,
+                                targetElement
+                            );
+                        }
                     }
                     return null;
-                })
+                });
             }
         }
 
@@ -107,19 +125,23 @@ class GoldenLayoutReact extends React.Component {
      * This method is called from inside componentDidMount
      * Lookout form stack creation, update our component state with stacks
      * and then use than state array to render stacks using createPortal later
+     * ---
+     * Add an element to the stackController space to render our stack component
      */
     handleStacks() {
         this.goldenLayoutInstance.on('stackCreated', stack => {
             this.setState(prevState => ({
                 glStacks: [...prevState.glStacks, stack]
             }));
+            stack.header.controlsContainer.prepend('<li class="custom-stack" style="margin-right: 7px"></li>')
         });
     }
 }
 
 GoldenLayoutReact.propTypes = {
     config: propTypes.object.isRequired,
-    components: propTypes.object.isRequired
+    components: propTypes.object.isRequired,
+    stackComponents: propTypes.object
 }
 
 export default GoldenLayoutReact;
