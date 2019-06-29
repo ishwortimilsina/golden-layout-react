@@ -65,9 +65,9 @@ import StackComp from './stackComp';
 
 ## Docs ##
 ### Props ###
-* config: regular golden-layout config object
-* components: an object map with 'component' from config as key and the actual React component as the value
-* StackComponent: React component to be rendered alongside golden-layout stack controls (on the right-side of the header)
+* **config**: regular golden-layout config object
+* **components**: an object map with 'component' from config as key and the actual React component as the value
+* **stackComponents**: an object map with 'component' from config as key and the actual React component to be rendered alongside golden-layout stack controls (on the right-side of the header) as the value.
 
 ## Acknowledgement ##
 Inspired by the Philipp Munin's [example](https://github.com/golden-layout/golden-layout/issues/392#issuecomment-384731510)
