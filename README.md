@@ -80,11 +80,13 @@ The following props can be used to subscribe to the respective [GoldenLayout eve
 * onRowCreated
 * onColumnCreated
 * onActiveContentItemChanged
+* **onLayoutMount:** This event will expose the GoldenLayout's layoutManager to you. This is not a native event that exists in the main GoldenLayout library. It's just a convenient way to grab the layoutManager in golden-layout-react.
 ```javascript
 <GoldenLayoutReact
     ...
     onStackCreated={stack => console.log(stack)} // subscribes to "stackCreated" event
     onItemDestroyed={item => console.log(item)} // subscribe to "itemDestroyed" event
+    onLayoutMount={layout => this.layout = layout} // get the whole GoldenLayout LayoutManager
 />
 ```
 
