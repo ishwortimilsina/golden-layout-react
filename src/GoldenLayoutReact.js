@@ -15,6 +15,7 @@ class GoldenLayoutReact extends React.Component {
         this.containerRef = React.createRef();
 
         this.handleStacks = this.handleStacks.bind(this);
+        this.handleGoldenLayoutEvents = this.handleGoldenLayoutEvents.bind(this);
         this.addPanel = this.addPanel.bind(this);
         this.destroyPanel = this.destroyPanel.bind(this);
     }
@@ -115,15 +116,16 @@ class GoldenLayoutReact extends React.Component {
             this.goldenLayoutInstance.registerComponent(type, this.props.components[type])
         }
 
+        this.handleStacks();
+        this.handleGoldenLayoutEvents();
+
         this.goldenLayoutInstance.reactContainer = this;
         this.goldenLayoutInstance.init();
-
-        this.handleStacks();
     }
 
     /**
      * This method is called from inside componentDidMount
-     * Lookout form stack creation, update our component state with stacks
+     * Lookout for stack creation, update our component state with stacks
      * and then use than state array to render stacks using createPortal later
      * ---
      * Add an element to the stackController space to render our stack component
@@ -133,15 +135,90 @@ class GoldenLayoutReact extends React.Component {
             this.setState(prevState => ({
                 glStacks: [...prevState.glStacks, stack]
             }));
-            stack.header.controlsContainer.prepend('<li class="custom-stack" style="margin-right: 7px"></li>')
+            stack.header.controlsContainer.prepend('<li class="custom-stack" style="margin-right: 7px"></li>');
+            // supply this stack if onStackCreated prop is present
+            if (this.props.onStackCreated) {
+                this.props.onStackCreated(stack);
+            }
         });
+    }
+
+    /**
+     * This method exposes all the events that the goldenlayout instance emits
+     * except "stackCreated" which is handle in handleStacks method
+     */
+    handleGoldenLayoutEvents() {
+        // supply the state to onStateChanged prop, if present
+        if (this.props.onStateChanged) {
+            this.goldenLayoutInstance.on('stateChanged', state => {
+                this.props.onStateChanged(state);
+            });
+        }
+
+        // supply the state to onTitleChanged prop, if present
+        if (this.props.onTitleChanged) {
+            this.goldenLayoutInstance.on('titleChanged', item => {
+                this.props.onTitleChanged(item);
+            });
+        }
+
+        // supply the state to onItemCreated prop, if present
+        if (this.props.onItemCreated) {
+            this.goldenLayoutInstance.on('itemCreated', item => {
+                this.props.onItemCreated(item);
+            });
+        }
+
+        // supply the state to onItemDestroyed prop, if present
+        if (this.props.onItemDestroyed) {
+            this.goldenLayoutInstance.on('itemDestroyed', item => {
+                this.props.onItemDestroyed(item);
+            });
+        }
+
+        // supply the state to onComponentCreated prop, if present
+        if (this.props.onComponentCreated) {
+            this.goldenLayoutInstance.on('componentCreated', component => {
+                this.props.onComponentCreated(component);
+            });
+        }
+
+        // supply the state to onRowCreated prop, if present
+        if (this.props.onRowCreated) {
+            this.goldenLayoutInstance.on('rowCreated', row => {
+                this.props.onRowCreated(row);
+            });
+        }
+
+        // supply the state to onColumnCreated prop, if present
+        if (this.props.onColumnCreated) {
+            this.goldenLayoutInstance.on('columnCreated', column => {
+                this.props.onColumnCreated(column);
+            });
+        }
+
+        // supply the state to onActiveContentItemChanged prop, if present
+        if (this.props.onActiveContentItemChanged) {
+            this.goldenLayoutInstance.on('activeContentItemChanged', component => {
+                this.props.onActiveContentItemChanged(component);
+            });
+        }
     }
 }
 
 GoldenLayoutReact.propTypes = {
     config: propTypes.object.isRequired,
     components: propTypes.object.isRequired,
-    stackComponents: propTypes.object
+    stackComponents: propTypes.object,
+    onStateChanged: propTypes.func,
+    onTitleChanged: propTypes.func,
+    onStackCreated: propTypes.func,
+    onItemCreated: propTypes.func,
+    onItemDestroyed: propTypes.func,
+    onComponentCreated: propTypes.func,
+    onRowCreated: propTypes.func,
+    onColumnCreated: propTypes.func,
+    onActiveContentItemChanged: propTypes.func
 }
 
 export default GoldenLayoutReact;
