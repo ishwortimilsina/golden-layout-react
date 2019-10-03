@@ -121,6 +121,11 @@ class GoldenLayoutReact extends React.Component {
 
         this.goldenLayoutInstance.reactContainer = this;
         this.goldenLayoutInstance.init();
+
+        // if onLayoutMount prop is present, supply the layout instance
+        if (this.props.onLayoutMount) {
+            this.props.onLayoutMount(this.goldenLayoutInstance);
+        }
     }
 
     /**
@@ -218,7 +223,8 @@ GoldenLayoutReact.propTypes = {
     onComponentCreated: propTypes.func,
     onRowCreated: propTypes.func,
     onColumnCreated: propTypes.func,
-    onActiveContentItemChanged: propTypes.func
+    onActiveContentItemChanged: propTypes.func,
+    onLayoutMount: propTypes.func
 }
 
 export default GoldenLayoutReact;
